@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Futsal"
+rootProject.name = "finkotlin"
 include(":app")

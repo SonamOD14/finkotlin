@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "869423421870",
-    "project_id": "goalpost-8470b",
-    "storage_bucket": "goalpost-8470b.firebasestorage.app"
+    "project_number": "956607103714",
+    "project_id": "inkotlin-6a97a",
+    "storage_bucket": "inkotlin-6a97a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869423421870:android:19b19106fe65300c20103f",
+        "mobilesdk_app_id": "1:956607103714:android:6ff2f77c074be4c5db14bb",
         "android_client_info": {
-          "package_name": "com.example.futsal"
+          "package_name": "com.example.finkotlin"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBxd4XGaC6eEAzVaJH0K5ugoPE_Fp2T2iI"
+          "current_key": "AIzaSyAcdYcuokOn_fuGqJDgXbB6J7aRTIe9o80"
         }
       ],
       "services": {

@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.futsal"
+    namespace = "com.example.finkotlin"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.futsal"
+        applicationId = "com.example.finkotlin"
         minSdk = 27
         targetSdk = 36
         versionCode = 1
