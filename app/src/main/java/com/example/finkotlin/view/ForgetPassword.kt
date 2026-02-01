@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.finkotlin.view.ui.theme.FutsalTheme
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -26,8 +27,10 @@ class ForgetPassword : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val emailFromIntent = intent.getStringExtra("email")
-            ForgetPasswordScreen(initialEmail = emailFromIntent ?: "")
+            FutsalTheme {
+                val emailFromIntent = intent.getStringExtra("email")
+                ForgetPasswordScreen(initialEmail = emailFromIntent ?: "")
+            }
         }
     }
 }
@@ -75,7 +78,7 @@ fun ForgetPasswordScreen(initialEmail: String = "") {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF167EF8))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
@@ -84,7 +87,7 @@ fun ForgetPasswordScreen(initialEmail: String = "") {
                     .fillMaxWidth()
                     .padding(24.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
                 Column(
                     modifier = Modifier.padding(24.dp),
@@ -118,8 +121,7 @@ fun ForgetPasswordScreen(initialEmail: String = "") {
                     } else {
                         Button(
                             onClick = { sendPasswordReset(email) },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF167EF8))
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             Text("Send Reset Link", color = Color.White)
                         }
@@ -133,5 +135,7 @@ fun ForgetPasswordScreen(initialEmail: String = "") {
 @Preview(showBackground = true)
 @Composable
 fun ForgetPasswordScreenPreview() {
-    ForgetPasswordScreen(initialEmail = "user@example.com")
+    FutsalTheme {
+        ForgetPasswordScreen(initialEmail = "user@example.com")
+    }
 }
