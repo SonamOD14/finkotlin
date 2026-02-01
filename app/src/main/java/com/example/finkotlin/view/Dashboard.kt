@@ -1,4 +1,4 @@
-package com.example.finkotlin.view
+ package com.example.finkotlin.view
 
 import android.app.Activity
 import android.os.Bundle
