@@ -33,6 +33,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -66,6 +67,7 @@ import com.example.finkotlin.ui.theme.Blue
 import com.example.finkotlin.ui.theme.Green
 import com.example.finkotlin.ui.theme.Lightgray
 import com.example.finkotlin.ui.theme.Mint
+import com.example.finkotlin.view.ui.theme.FutsalTheme
 import com.example.finkotlin.view.ui.theme.Yellowish
 
 
@@ -74,7 +76,9 @@ class Registration : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            RegistrationBody()
+            FutsalTheme {
+                RegistrationBody()
+            }
         }
     }
 }
@@ -92,7 +96,6 @@ fun RegistrationBody(){
 
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
-    val activity = context as Activity
 
     val userViewModel = remember { UserViewModel(UserRepoImpl()) }
 
@@ -109,21 +112,14 @@ fun RegistrationBody(){
         }, year, month, day
     )
 
-    val sharedPreferences = context.getSharedPreferences("user",
-        Context.MODE_PRIVATE)
-
-    val editor = sharedPreferences.edit()
-
-    val savedEmail = sharedPreferences.getString("email",email)
-
     Scaffold(
-        containerColor = Yellowish
+        containerColor = MaterialTheme.colorScheme.background
     ) { padding->
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(padding)
                 .padding(vertical = 20.dp),
-
         ) {
             Column (
                 modifier = Modifier
@@ -138,320 +134,250 @@ fun RegistrationBody(){
                         .background(Color.White.copy(alpha = 0.15f)),
                     contentAlignment = Alignment.Center
                 ){
-                Image(
-                    painter = painterResource(R.drawable.logo),
-                    contentDescription = null,
-                    modifier = Modifier.size(60.dp),
-                    contentScale = ContentScale.Fit
+                    Image(
+                        painter = painterResource(R.drawable.logo),
+                        contentDescription = null,
+                        modifier = Modifier.size(60.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Text(
+                    text = "Welcome Back",
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Sign in to continue to Goalpost",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+
             }
-
-            Spacer(modifier = Modifier.height(14.dp))
-
-            Text(
-                text = "Welcome Back",
-                color = Color.White,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = "Sign in to continue to Goalpost",
-                color = Color.White,
-                fontSize = 16.sp
-            )
-
-        }
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
-                    // Set a max height to control how much space the form takes
-                    .fillMaxHeight(0.75f) // Takes up the bottom 75% of the screen
+                    .fillMaxHeight(0.75f)
                     .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
                     .background(Color.White)
                     .padding(24.dp)
-                    .verticalScroll(rememberScrollState()), // Makes the form scrollable
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-            OutlinedTextField(
-                value = email,
-                onValueChange = { data ->
-                    email = data
-                },
-                placeholder = {
-                    Text("Email")
-                },
-
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Lightgray,
-                    focusedContainerColor = Lightgray,
-                    focusedIndicatorColor = Green,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                shape = RoundedCornerShape(15.dp)
-
-
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-
-            OutlinedTextField(
-                value = firstname,
-                onValueChange = { data ->
-                    firstname = data
-                },
-                placeholder = {
-                    Text("First Name")
-                },
-
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Lightgray,
-                    focusedContainerColor = Lightgray,
-                    focusedIndicatorColor = Green,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                shape = RoundedCornerShape(15.dp)
-
-
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = lastname,
-                onValueChange = { data ->
-                    lastname = data
-                },
-                placeholder = {
-                    Text("Last Name")
-                },
-
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Lightgray,
-                    focusedContainerColor = Lightgray,
-                    focusedIndicatorColor = Green,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                shape = RoundedCornerShape(15.dp)
-
-
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = gender,
-                onValueChange = { data ->
-                    gender = data
-                },
-                placeholder = {
-                    Text("Gender")
-                },
-
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Lightgray,
-                    focusedContainerColor = Lightgray,
-                    focusedIndicatorColor = Green,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                shape = RoundedCornerShape(15.dp)
-
-
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-
-            OutlinedTextField(
-                value = selectedDate,
-                onValueChange = {
-                    selectedDate = it
-                },
-                enabled = false,
-                placeholder = {
-                    Text("dd/mm/yyyy")
-                },
-                colors = TextFieldDefaults.colors(
-                    disabledContainerColor = Lightgray,
-                    disabledIndicatorColor = Color.Transparent,
-                    unfocusedContainerColor = Lightgray,
-                    focusedContainerColor = Lightgray,
-                    focusedIndicatorColor = Green,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable() {
-                        datepicker.show()
-                    }
-                    .padding(horizontal = 15.dp),
-                shape = RoundedCornerShape(15.dp)
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = password,
-                onValueChange = { data->
-                    password = data
-                },
-                placeholder = {
-                    Text("**********")
-                },
-                trailingIcon = {
-                    IconButton(onClick = {
-                        visibility = !visibility
-                    }) {
-                        Icon(
-                            painter = if (!visibility)
-                                painterResource(R.drawable.baseline_visibility_off_24)
-                            else
-                                painterResource(R.drawable.baseline_visibility_24),
-                            contentDescription = null,
-                        )
-                    }
-
-                },
-                visualTransformation = if (!visibility) PasswordVisualTransformation() else VisualTransformation.None,
-
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Lightgray,
-                    focusedContainerColor = Lightgray,
-                    focusedIndicatorColor = Green,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
-
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
-                shape = RoundedCornerShape(15.dp)
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = terms,
-                    onCheckedChange = {
-                        terms = it
-                    },
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = Blue,
-                        checkmarkColor = Mint
-                    )
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    placeholder = { Text("Email") },
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = Lightgray,
+                        focusedContainerColor = Lightgray,
+                        focusedIndicatorColor = Green,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    shape = RoundedCornerShape(15.dp)
                 )
-                Text("I agree to terms & Conditions")
-            }
 
-            Button(onClick = {
-                if (!terms) {
-                    Toast.makeText(
-                        context,
-                        "Please agree terms & conditions",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }else{
-                    userViewModel.register(email,password){
-                            success, message, userId ->
-                        if(success){
-                            val model = UserModel(
-                                userId = userId,
-                                firstName = firstname,
-                                lastName = lastname,
-                                email = email,
-                                dob = selectedDate,
-                                gender = gender
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = firstname,
+                    onValueChange = { firstname = it },
+                    placeholder = { Text("First Name") },
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = Lightgray,
+                        focusedContainerColor = Lightgray,
+                        focusedIndicatorColor = Green,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    shape = RoundedCornerShape(15.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = lastname,
+                    onValueChange = { lastname = it },
+                    placeholder = { Text("Last Name") },
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = Lightgray,
+                        focusedContainerColor = Lightgray,
+                        focusedIndicatorColor = Green,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    shape = RoundedCornerShape(15.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = gender,
+                    onValueChange = { gender = it },
+                    placeholder = { Text("Gender") },
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = Lightgray,
+                        focusedContainerColor = Lightgray,
+                        focusedIndicatorColor = Green,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    shape = RoundedCornerShape(15.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                        .clickable { datepicker.show() }
+                ) {
+                    OutlinedTextField(
+                        value = selectedDate,
+                        onValueChange = {},
+                        enabled = false,
+                        placeholder = { Text("dd/mm/yyyy") },
+                        colors = TextFieldDefaults.colors(
+                            disabledContainerColor = Lightgray,
+                            disabledIndicatorColor = Color.Transparent,
+                            disabledTextColor = Color.Black,
+                            disabledPlaceholderColor = Color.Gray
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(15.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    placeholder = { Text("**********") },
+                    trailingIcon = {
+                        IconButton(onClick = { visibility = !visibility }) {
+                            Icon(
+                                painter = if (!visibility)
+                                    painterResource(R.drawable.baseline_visibility_off_24)
+                                else
+                                    painterResource(R.drawable.baseline_visibility_24),
+                                contentDescription = null,
                             )
-                            userViewModel.addUserToDatabase(userId,model){
-                                    success,message->
-                                if (success){
-                                    Toast.makeText(context,
-                                        message,
-                                        Toast.LENGTH_LONG).show()
+                        }
+                    },
+                    visualTransformation = if (!visibility) PasswordVisualTransformation() else VisualTransformation.None,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = Lightgray,
+                        focusedContainerColor = Lightgray,
+                        focusedIndicatorColor = Green,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp),
+                    shape = RoundedCornerShape(15.dp)
+                )
 
-                                    val intent = Intent( context,
-                                        Login::class.java)
-                                    context.startActivity(intent)
-                                    (context as? Activity)?.finish()
+                Spacer(modifier = Modifier.height(10.dp))
 
-                                }else{
-                                    Toast.makeText(context,
-                                        message,
-                                        Toast.LENGTH_LONG).show()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = terms,
+                        onCheckedChange = { terms = it },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = MaterialTheme.colorScheme.primary,
+                            checkmarkColor = Color.White
+                        )
+                    )
+                    Text("I agree to terms & Conditions")
+                }
+
+                Button(
+                    onClick = {
+                        if (!terms) {
+                            Toast.makeText(context, "Please agree to terms & conditions", Toast.LENGTH_LONG).show()
+                        } else if (email.isBlank() || password.isBlank() || firstname.isBlank() || lastname.isBlank()) {
+                            Toast.makeText(context, "Please fill all fields", Toast.LENGTH_LONG).show()
+                        } else {
+                            userViewModel.register(email, password) { success, message, userId ->
+                                if (success && userId != null) {
+                                    val model = UserModel(
+                                        userId = userId,
+                                        firstName = firstname,
+                                        lastName = lastname,
+                                        email = email,
+                                        dob = selectedDate,
+                                        gender = gender
+                                    )
+                                    userViewModel.addUserToDatabase(userId, model) { dbSuccess, dbMessage ->
+                                        if (dbSuccess) {
+                                            Toast.makeText(context, dbMessage, Toast.LENGTH_LONG).show()
+                                            val intent = Intent(context, Login::class.java)
+                                            context.startActivity(intent)
+                                            (context as? Activity)?.finish()
+                                        } else {
+                                            Toast.makeText(context, dbMessage, Toast.LENGTH_LONG).show()
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(context, message ?: "Registration failed", Toast.LENGTH_LONG).show()
                                 }
                             }
-                        }else{
-                            Toast.makeText(context,
-                                message,
-                                Toast.LENGTH_LONG).show()
                         }
-                    }
+                    },
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp, vertical = 15.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Text("Sign Up", fontSize = 20.sp)
                 }
 
-            },
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp, vertical = 15.dp),
-                colors = ButtonDefaults.buttonColors(
-                    Yellowish
-                )
-
-            )
-            {
-                Text("Sign Up",
-                    fontSize =  20.sp
-
-
+                Text(
+                    buildAnnotatedString {
+                        append("Already have an account? ")
+                        withStyle(SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)) {
+                            append("Sign In")
+                        }
+                    },
+                    modifier = Modifier
+                        .clickable {
+                            val intent = Intent(context, Login::class.java)
+                            context.startActivity(intent)
+                        }
+                        .padding(8.dp)
                 )
             }
-
-            Text(buildAnnotatedString {
-                append("Already have a account?")
-                withStyle(SpanStyle(color = Yellowish)){
-                    append("Sign In")
-                }
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    val intent = Intent(
-                        context,
-                        Login::class.java
-                    )
-                    context.startActivity(intent)
-
-
-                }
-
-            )
-
         }
     }
-
-}}
+}
 
 @Preview
 @Composable
 fun RegistrationBodyPreview(){
-    RegistrationBody()
+    FutsalTheme {
+        RegistrationBody()
+    }
 }
